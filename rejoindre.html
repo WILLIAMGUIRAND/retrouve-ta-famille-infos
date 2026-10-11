@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#10101b">
+  <title>Invitation familiale · Retrouve ta famille</title>
+  <meta name="description" content="Rejoignez votre dossier personnel dans Retrouve ta famille.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .invite-page { min-height:100dvh; display:flex; flex-direction:column; background:#10101b; }
+    .invite-page header { flex:none; border:0; padding-block:16px; }
+    .invite-main { width:min(100%,1120px); max-width:none; flex:1; min-height:0; display:grid; grid-template-columns:1.1fr .9fr; align-items:center; gap:clamp(22px,5vw,70px); padding-block:20px 36px; }
+    .invite-art { position:relative; height:min(75dvh,640px); min-height:350px; overflow:hidden; border-radius:34px; border:1px solid #7c6a7959; }
+    .invite-art img { width:100%; height:100%; object-fit:cover; object-position:63% center; }
+    .invite-art::after { content:""; position:absolute; inset:45% 0 0; background:linear-gradient(transparent,#16111a9c); pointer-events:none; }
+    .invite-content { max-width:480px; }
+    .invite-content h1 { font-size:clamp(2.3rem,4vw,4.2rem); margin:.55rem 0 1rem; }
+    .invite-content h1 em { color:#c7a5ff; }
+    .invite-content p { color:#d8d3e4; line-height:1.5; font-size:1.05rem; }
+    .invite-code { display:grid; gap:9px; margin:26px 0 12px; padding:17px; border:1px solid #655080; border-radius:20px; background:#292036; }
+    .invite-code small { font-weight:800; letter-spacing:.09em; text-transform:uppercase; color:#ceb1ff; }
+    .invite-code output { display:block; overflow-wrap:anywhere; color:white; font:700 1rem/1.4 ui-monospace,SFMono-Regular,Consolas,monospace; }
+    .invite-code .button { justify-content:center; border:0; cursor:pointer; font:inherit; font-weight:800; }
+    .invite-code .button:disabled { opacity:.5; cursor:not-allowed; }
+    .invite-steps { margin:16px 0 0; padding-left:1.45rem; color:#e1dbe9; line-height:1.6; }
+    .invite-steps li+li { margin-top:5px; }
+    .invite-feedback { min-height:1.5em; color:#a9e6c0!important; font-size:.9rem!important; }
+    .invite-feedback:empty { display:none; }
+    .invite-privacy { font-size:.8rem!important; color:#bdb4cc!important; }
+    .invite-page footer { flex:none; }
+    @media(max-width:720px) {
+      .invite-page { height:100dvh; overflow:hidden; }
+      .invite-page header { padding:7px 16px; }
+      .invite-page header nav { display:none; }
+      .invite-main { display:flex; flex-direction:column; align-items:stretch; gap:0; padding:0 16px 5px; overflow:auto; }
+      .invite-art { width:100%; height:clamp(150px,34dvh,230px); min-height:0; flex:none; border-radius:22px 22px 0 0; }
+      .invite-art img { object-position:63% 55%; }
+      .invite-content { max-width:none; padding:10px 8px 0; }
+      .invite-content h1 { font-size:clamp(1.55rem,7vw,2.2rem); line-height:1.02; margin:.15rem 0 .3rem; }
+      .invite-content p { margin:.25rem 0; font-size:.82rem; line-height:1.32; }
+      .invite-code { gap:4px; margin:8px 0 4px; padding:9px 11px; border-radius:15px; }
+      .invite-code output { font-size:.72rem; line-height:1.2; }
+      .invite-code .button { padding:7px 12px; }
+      .invite-steps { margin:6px 0; font-size:.78rem; line-height:1.25; }
+      .invite-steps li+li { margin-top:2px; }
+      .invite-page footer { display:none; }
+    }
+    @media(max-width:720px) and (max-height:600px) {
+      .invite-content { padding-top:7px; }
+      .invite-content h1 { font-size:1.45rem; }
+      .invite-content p, .invite-steps { font-size:.73rem; }
+      .invite-privacy { font-size:.7rem!important; }
+    }
+  </style>
+</head>
+<body class="invite-page">
+  <header><a class="brand" href="./"><img src="assets/rtf-app-icon.png" alt="" width="32" height="32" style="vertical-align:middle;border-radius:8px;margin-right:8px">Retrouve ta famille</a><nav><a href="confidentialite.html">Confidentialité</a><a href="support.html">Assistance</a></nav></header>
+  <main class="invite-main">
+    <div class="invite-art"><img src="assets/famille-sous-chene-sept-personnes.png" alt="Une famille de plusieurs générations réunie sous un chêne"></div>
+    <section class="invite-content" aria-labelledby="invite-title">
+      <span class="eyebrow">UNE PLACE VOUS ATTEND</span>
+      <h1 id="invite-title">Votre famille.<br><em>Votre histoire.</em></h1>
+      <p>Un proche vous invite dans sa lignée. Ce lien privé ne sert qu’une fois.</p>
+      <div class="invite-code">
+        <small>Votre code personnel</small>
+        <output id="invite-code" aria-live="polite">Vérification du lien…</output>
+        <button id="copy-invite" class="button" type="button" disabled>Copier le code</button>
+      </div>
+      <p id="invite-feedback" class="invite-feedback" role="status"></p>
+      <ol class="invite-steps"><li>Ouvrez <strong>Retrouve ta famille</strong>.</li><li>Touchez <strong>Rejoindre ma lignée</strong> et collez le code.</li><li>Connectez-vous avec votre adresse e-mail.</li></ol>
+      <p class="invite-privacy">Code privé · valable jusqu’à 7 jours · aucune donnée familiale dans le lien.</p>
+    </section>
+  </main>
+  <footer><span>© 2026 WORLDMEDIA · Retrouve ta famille</span><a href="confidentialite.html">Confidentialité</a><a href="support.html">Assistance</a></footer>
+  <script>
+    const token = new URLSearchParams(location.hash.slice(1)).get('invite') || '';
+    const code = document.querySelector('#invite-code');
+    const copy = document.querySelector('#copy-invite');
+    const feedback = document.querySelector('#invite-feedback');
+    if (/^[a-f0-9]{64}$/i.test(token)) {
+      code.textContent = token.toLowerCase();
+      copy.disabled = false;
+      copy.addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(token.toLowerCase()); feedback.textContent = 'Code copié. Revenez dans l’application pour rejoindre votre famille.'; }
+        catch { feedback.textContent = 'Copiez le code affiché puis collez-le dans l’application.'; }
+      });
+    } else {
+      code.textContent = 'Ce lien ne contient pas de code valide.';
+      feedback.textContent = 'Demandez un nouveau lien à la personne qui vous invite.';
+    }
+  </script>
+</body>
+</html>
