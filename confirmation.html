@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#10101b">
+  <title>Confirmer mon adresse · Retrouve ta famille</title>
+  <meta name="description" content="Terminez la création de votre compte familial privé.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { min-height:100dvh; display:grid; grid-template-rows:auto 1fr auto; background:#10101b; }
+    .confirmation-main { width:min(100%,650px); align-self:center; text-align:center; padding-block:24px; }
+    .confirmation-icon { display:grid; place-items:center; width:80px; height:80px; margin:0 auto 22px; border-radius:24px; background:linear-gradient(140deg,#8b23f5,#3057ee); box-shadow:0 16px 55px #4e2c9b55; }
+    .confirmation-icon img { width:52px; height:52px; border-radius:14px; }
+    h1 { margin:14px 0; font-size:clamp(2rem,6vw,3.5rem); line-height:1.08; }
+    h1 em { color:#c7a5ff; }
+    .confirmation-main p { color:#ded8e8; line-height:1.5; }
+    .confirmation-main .button { display:inline-flex; margin-top:20px; }
+    @media(max-width:720px) { body { height:100dvh; overflow:hidden; } .confirmation-main { padding:16px 22px; } .confirmation-main .button { margin-top:12px; } footer { display:none; } }
+  </style>
+</head>
+<body>
+  <header><a class="brand" href="./"><img src="assets/rtf-app-icon.png" alt="" width="32" height="32" style="vertical-align:middle;border-radius:8px;margin-right:8px">Retrouve ta famille</a></header>
+  <main class="confirmation-main">
+    <span class="confirmation-icon"><img src="assets/rtf-app-icon.png" alt=""></span>
+    <span class="eyebrow">VOTRE HISTOIRE COMMENCE ICI</span>
+    <h1 id="title">Adresse e-mail<br><em>confirmée</em></h1>
+    <p id="message">Retournez dans l’application Retrouve ta famille, connectez-vous avec votre adresse e-mail, puis ouvrez votre dossier personnel.</p>
+    <a class="button" href="./">Découvrir Retrouve ta famille</a>
+  </main>
+  <footer><span>© 2026 WORLDMEDIA · Retrouve ta famille</span><a href="confidentialite.html">Confidentialité</a><a href="support.html">Assistance</a></footer>
+  <script>
+    const fragment = new URLSearchParams(location.hash.slice(1));
+    const query = new URLSearchParams(location.search);
+    if (fragment.has('error') || query.has('error') || fragment.has('error_code') || query.has('error_code')) {
+      document.querySelector('#title').textContent = 'Le lien a expiré';
+      document.querySelector('#message').textContent = 'Demandez un nouvel e-mail de confirmation depuis l’application. Si le problème persiste, contactez notre assistance.';
+    }
+    if (location.search || location.hash) history.replaceState(null, '', location.pathname);
+  </script>
+</body>
+</html>
